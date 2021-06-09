@@ -1,0 +1,37 @@
+version: "3.8"
+services: 
+    zookeeper:
+        image: "debezium/zookeeper:1.5"
+        container_name: "zookeeper"
+        ports: 
+            - "2181:2181"
+            - "2888:2888"
+            - "3888:3888"
+    kafka:
+        image: "debezium/kafka:1.6"
+        container_name: "kafka"
+        depends_on: 
+            - "zookeeper"
+        ports: 
+            - "9092:9092"
+        environment:
+            - ZOOKEEPER_CONNECT=zookeeper:2181
+    mysql:
+        image: "mysql:8.0.25"
+        container_name: "mysql"
+        environment: 
+            - "MYSQL_ROOT_PASSWORD=root_001"
+            - "MYSQL_USER=myuser_001"
+            - "MYSQL_PASSWORD=11223344"
+        volumes: 
+            - "./docker-data/mysql:/var/lib/mysql"
+    phpmyadmin:
+        image: "phpmyadmin/phpmyadmin:5.1.1"
+        container_name: "phpmyadmin"
+        depends_on: 
+            - "mysql"
+        ports:
+            - 8080:80
+        environment: 
+            - "PMA_HOST=mysql"
+            - "UPLOAD_LIMIT=128MB"
