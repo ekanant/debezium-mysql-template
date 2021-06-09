@@ -1,7 +1,7 @@
 version: "3.8"
 services: 
     zookeeper:
-        image: "debezium/zookeeper:1.5"
+        image: "debezium/zookeeper:1.6"
         container_name: "zookeeper"
         ports: 
             - "2181:2181"
