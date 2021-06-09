@@ -30,6 +30,8 @@ services:
             - "CONFIG_STORAGE_TOPIC=my_connect_configs"
             - "OFFSET_STORAGE_TOPIC=my_connect_offsets"
             - "STATUS_STORAGE_TOPIC=my_connect_statuses"
+        volumes: 
+            - "./docker-data/kafka.connect.out.txt:/kafka/out.txt"
     mysql:
         image: "mysql:8.0.25"
         container_name: "mysql"

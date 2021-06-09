@@ -1,0 +1,11 @@
+{
+    "name": "quickstart-avro-file-sink",
+    "config": {
+      "connector.class": "org.apache.kafka.connect.file.FileStreamSinkConnector",
+      "tasks.max": "1",
+      "topics": "dbserver_1.inventory.addresses",
+      "file": "/kafka/out.txt",
+      "name": "quickstart-avro-file-sink"
+    },
+    "tasks": []
+  }
