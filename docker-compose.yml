@@ -15,7 +15,7 @@ services:
         ports: 
             - "9092:9092"
         environment:
-            - ZOOKEEPER_CONNECT=zookeeper:2181
+            - "ZOOKEEPER_CONNECT=zookeeper:2181"
     mysql:
         image: "mysql:8.0.25"
         container_name: "mysql"
@@ -31,7 +31,6 @@ services:
         depends_on: 
             - "mysql"
         ports:
-            - 8080:80
+            - "8080:80"
         environment: 
             - "PMA_HOST=mysql"
-            - "UPLOAD_LIMIT=128MB"
