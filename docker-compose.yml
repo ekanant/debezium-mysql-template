@@ -32,6 +32,18 @@ services:
             - "STATUS_STORAGE_TOPIC=my_connect_statuses"
         volumes: 
             - "./docker-data/kafka.connect.out.txt:/kafka/out.txt"
+    kafka-ui:
+        image: "provectuslabs/kafka-ui:0.0.10"
+        container_name: "kafka-ui"
+        depends_on: 
+            - "kafka"
+        ports:
+            - "8181:8080"
+        restart: always
+        environment:
+            - "KAFKA_CLUSTERS_0_NAME=local"
+            - "KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:9092"
+            - "KAFKA_CLUSTERS_0_ZOOKEEPER=zookeeper:2181"
     mysql:
         image: "mysql:8.0.25"
         container_name: "mysql"
