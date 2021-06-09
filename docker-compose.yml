@@ -7,6 +7,9 @@ services:
             - "2181:2181"
             - "2888:2888"
             - "3888:3888"
+        volumes: 
+            - "./docker-data/zookeeper/data:/zookeeper/data"
+            - "./docker-data/zookeeper/txns:/zookeeper/txns"
     kafka:
         image: "debezium/kafka:1.6"
         container_name: "kafka"
@@ -16,6 +19,9 @@ services:
             - "9092:9092"
         environment:
             - "ZOOKEEPER_CONNECT=zookeeper:2181"
+        volumes: 
+            - "./docker-data/kafka/data:/kafka/data"
+            - "./docker-data/kafka/logs:/kafka/logs"
     kafka_connect:
         image: "debezium/connect:1.6"
         container_name: "kafka_connect"
@@ -31,7 +37,9 @@ services:
             - "OFFSET_STORAGE_TOPIC=my_connect_offsets"
             - "STATUS_STORAGE_TOPIC=my_connect_statuses"
         volumes: 
-            - "./docker-data/kafka.connect.out.txt:/kafka/out.txt"
+            - "./docker-data/kafka_connect/out.txt:/kafka/out.txt"
+            - "./docker-data/kafka_connect/data:/kafka/data"
+            - "./docker-data/kafka_connect/logs:/kafka/logs"
     kafka-ui:
         image: "provectuslabs/kafka-ui:0.0.10"
         container_name: "kafka-ui"
